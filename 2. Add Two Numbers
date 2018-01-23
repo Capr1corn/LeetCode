@@ -1,0 +1,42 @@
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Example
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Explanation: 342 + 465 = 807.
+
+
+
+c++:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+         ListNode preHead(0), *p = &preHead;   //声明一个新的头节点，用来指向结果节点
+         int extra = 0;                          //声明一个值用来存储  低位的进制。
+       while (l1 || l2 || extra) {
+            if (l1) extra += l1->val, l1 = l1->next;
+            if (l2) extra += l2->val, l2 = l2->next;
+            p->next = new ListNode(extra % 10);      //求余存储在新节点中。
+              extra /= 10;
+            p = p->next;
+    }
+    return preHead.next;
+    }
+};
+
+
+思路：
+声明一个新的链表，用来存储相加的结果值，每次相加的结果都在while{}循环中申请一个新的节点加到新的列表上
+也要声明一个Int类型的值，通过这个值来存储每次相加的进位，----求余放在低位上，进位放到extra上
+
