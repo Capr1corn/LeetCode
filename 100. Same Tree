@@ -1,0 +1,100 @@
+Given two binary trees, write a function to check if they are the same or not.
+
+Two binary trees are considered the same if they are structurally identical and the nodes have the same value.
+
+
+Example 1:
+
+Input:     1         1
+          / \       / \
+         2   3     2   3
+
+        [1,2,3],   [1,2,3]
+
+Output: true
+Example 2:
+
+Input:     1         1
+          /           \
+         2             2
+
+        [1,2],     [1,null,2]
+
+Output: false
+Example 3:
+
+Input:     1         1
+          / \       / \
+         2   1     1   2
+
+        [1,2,1],   [1,1,2]
+
+Output: false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+    if (!p || !q) return q == p;
+    return p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+    }
+};
+
+
+
+/*
+
+
+ if(p==NULL&&q==NULL)return true;
+        if(p==NULL||q==NULL)return false;
+        
+        TreeNode *ptr=p,*qtr=q;
+        while((ptr->left||ptr->right)&&(qtr->left||ptr->right)){
+            if(ptr->val==qtr->val){
+                ptr=ptr->left!=NULL?ptr->left:ptr->right;
+                qtr=qtr->left!=NULL?qtr->left:qtr->right;
+            }else {return false;}
+            
+            
+        }
+        if((ptr->left||ptr->right)||(qtr->left||ptr->right))return false;
+        else return true;
+        
+
+思路： 树多采用的是递归，递归操作对树很方便
+关于树的操作多是采用的递归来实现的，所以需要对递归的条件判断和树结构掌握清晰。
+
+*/
